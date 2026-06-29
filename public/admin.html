@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - JSS Engineering Works</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- Navigation Header -->
+  <header class="app-header">
+    <div class="header-brand">
+      <img src="assets/logo.jpg" class="header-logo" alt="JSS Engineering Works Logo">
+      <div class="header-title-container">
+        <span class="header-title">JSS Engineering Works</span>
+        <span class="header-subtitle">Admin Control Panel</span>
+      </div>
+    </div>
+    <div class="header-user">
+      <div class="user-badge">
+        <span class="badge-dot"></span>
+        <span id="admin-name-display">Admin</span>
+      </div>
+      <button class="btn btn-secondary" onclick="Auth.logout()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Sign Out
+      </button>
+    </div>
+  </header>
+
+  <div class="container dashboard-container">
+    
+    <!-- Quick Statistics Grid -->
+    <div class="stat-grid">
+      <!-- Total Projects -->
+      <div class="stat-card glass-panel">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-active-projects">0</div>
+          <div class="stat-label">Active Projects</div>
+        </div>
+      </div>
+      <!-- Active Workers -->
+      <div class="stat-card glass-panel">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-active-workers">0</div>
+          <div class="stat-label">Workers On Duty</div>
+        </div>
+      </div>
+      <!-- Pending Visitors -->
+      <div class="stat-card glass-panel">
+        <div class="stat-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div>
+          <div class="stat-value" id="stat-pending-visits">0</div>
+          <div class="stat-label">Pending Visits</div>
+        </div>
+      </div>
+      <!-- Safety Incident-free Days -->
+      <div class="stat-card glass-panel">
+        <div class="stat-icon" style="color: var(--status-success); border-color: rgba(0, 230, 118, 0.2); box-shadow: 0 0 15px rgba(0, 230, 118, 0.15);">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
+        <div>
+          <div class="stat-value" style="color: var(--status-success);">420 Days</div>
+          <div class="stat-label">Incident Free Streak</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="panel-tabs">
+      <button class="panel-tab-btn active" id="tab-projects" onclick="switchDashboardTab('projects')">Projects & Jobs</button>
+      <button class="panel-tab-btn" id="tab-workers" onclick="switchDashboardTab('workers')">Workers Registry</button>
+      <button class="panel-tab-btn" id="tab-visitors" onclick="switchDashboardTab('visitors')">Visitor Access Permits</button>
+      <button class="panel-tab-btn" id="tab-hazards" onclick="switchDashboardTab('hazards')">Safety Alerts (<span id="hazard-badge-count">0</span>)</button>
+      <button class="panel-tab-btn" id="tab-leaves" onclick="switchDashboardTab('leaves')">Leave Approvals (<span id="leave-badge-count">0</span>)</button>
+    </div>
+
+    <!-- PROJECTS TAB PANELS -->
+    <div id="section-projects" class="tab-section">
+      <div class="dashboard-grid">
+        <!-- Live Projects Pipe Tracker -->
+        <div class="glass-panel dashboard-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              Active Projects Pipeline
+            </h2>
+            <span class="panel-subtitle" id="proj-count-label">3 Projects total</span>
+          </div>
+          <div class="table-container">
+            <table class="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Project Name</th>
+                  <th>Assigned Welder</th>
+                  <th>Weld Process</th>
+                  <th>Progress</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="projects-table-body">
+                <!-- Injected via js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add Project Side Form -->
+        <div class="glass-panel dashboard-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Launch New Project</h2>
+          </div>
+          <form onsubmit="handleNewProject(event)">
+            <div class="form-group">
+              <label for="new-proj-name">Project / Job Name</label>
+              <input type="text" id="new-proj-name" class="form-control" placeholder="e.g. Tank Fabrication #3" required>
+            </div>
+            <div class="form-group">
+              <label for="new-proj-process">Welding Process</label>
+              <select id="new-proj-process" class="form-control" required>
+                <option value="MIG (GMAW)">MIG (GMAW)</option>
+                <option value="TIG (GTAW)">TIG (GTAW)</option>
+                <option value="Stick (SMAW)">Stick (SMAW)</option>
+                <option value="Flux-Cored (FCAW)">Flux-Cored (FCAW)</option>
+                <option value="TIG Root + SMAW Cap">TIG Root + SMAW Cap</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="new-proj-worker">Assign Welder</label>
+              <select id="new-proj-worker" class="form-control" required>
+                <!-- Injected via js -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="new-proj-desc">Job Description / Specs</label>
+              <textarea id="new-proj-desc" class="form-control" rows="3" placeholder="Thickness specs, visual/UT requirements..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Create & Assign Job
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKERS TAB PANEL -->
+    <div id="section-workers" class="tab-section" style="display: none;">
+      <div class="dashboard-grid">
+        <!-- Workers Grid list -->
+        <div class="glass-panel dashboard-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              Registered Welders
+            </h2>
+            <span class="panel-subtitle" id="worker-count-label">3 Welders total</span>
+          </div>
+          <div class="table-container">
+            <table class="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Welder Name</th>
+                  <th>Key Certification</th>
+                  <th>On-Duty Status</th>
+                  <th>Active Project</th>
+                  <th>Status Toggle</th>
+                </tr>
+              </thead>
+              <tbody id="workers-table-body">
+                <!-- Injected via js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Add Worker Side Form -->
+        <div class="glass-panel dashboard-panel">
+          <div class="panel-header">
+            <h2 class="panel-title">Onboard Welder</h2>
+          </div>
+          <form onsubmit="handleNewWorker(event)">
+            <div class="form-group">
+              <label for="new-worker-name">Welder Full Name</label>
+              <input type="text" id="new-worker-name" class="form-control" placeholder="e.g. Ramesh Kumar" required>
+            </div>
+            <div class="form-group">
+              <label for="new-worker-cert">Welding Certifications</label>
+              <input type="text" id="new-worker-cert" class="form-control" placeholder="e.g. AWS D1.1 / ASME Sec IX" required>
+            </div>
+            <div class="form-group">
+              <label for="new-worker-user">Portal Username</label>
+              <input type="text" id="new-worker-user" class="form-control" placeholder="e.g. worker4" required>
+            </div>
+            <div class="form-group">
+              <label for="new-worker-pass">Portal Password</label>
+              <input type="password" id="new-worker-pass" class="form-control" value="worker123" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Register Welder Account
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISITOR TAB PANEL -->
+    <div id="section-visitors" class="tab-section" style="display: none;">
+      <div class="glass-panel dashboard-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            Site Access Permit Requests
+          </h2>
+          <span class="panel-subtitle">Review scheduled plant visitors</span>
+        </div>
+        <div class="table-container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Visitor Name</th>
+                <th>Company / Organization</th>
+                <th>Date & Time</th>
+                <th>Purpose of Visit</th>
+                <th>Permit Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="visitors-table-body">
+              <!-- Injected via js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAFETY ALERTS (HAZARDS) PANEL -->
+    <div id="section-hazards" class="tab-section" style="display: none;">
+      <div class="glass-panel dashboard-panel">
+        <div class="panel-header">
+          <h2 class="panel-title" style="color: var(--status-warning);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg>
+            Logged Safety Hazards & Incidents
+          </h2>
+          <span class="panel-subtitle">Worker-reported shop floor safety issues</span>
+        </div>
+        <div class="table-container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Reported By</th>
+                <th>Hazard Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="hazards-table-body">
+              <!-- Injected via js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAVE REQUESTS PANEL -->
+    <div id="section-leaves" class="tab-section" style="display: none;">
+      <div class="glass-panel dashboard-panel">
+        <div class="panel-header">
+          <h2 class="panel-title" style="color: var(--status-info);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Worker Leave Applications
+          </h2>
+          <span class="panel-subtitle" id="leave-count-label">Review pending leave applications</span>
+        </div>
+        <div class="table-container">
+          <table class="dashboard-table">
+            <thead>
+              <tr>
+                <th>Worker Name</th>
+                <th>Leave Dates</th>
+                <th>Type of Leave</th>
+                <th>Reason / Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="leaves-table-body">
+              <!-- Injected via js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Progress Update Modal -->
+  <div class="modal-backdrop" id="progress-modal">
+    <div class="modal-content glass-panel">
+      <div class="panel-header" style="margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px;">
+        <h3 id="modal-project-title" style="color: var(--gold-primary);">Update Project Progress</h3>
+        <button class="modal-close" onclick="closeProgressModal()">&times;</button>
+      </div>
+      <form onsubmit="handleProgressUpdateSubmit(event)">
+        <input type="hidden" id="modal-project-id">
+        <div class="form-group">
+          <label for="modal-progress-range">Weld Completion Progress (<span id="modal-progress-val">50</span>%)</label>
+          <input type="range" id="modal-progress-range" class="form-control" min="0" max="100" step="5" oninput="document.getElementById('modal-progress-val').innerText = this.value">
+        </div>
+        <div class="form-group">
+          <label for="modal-status-select">Project State</label>
+          <select id="modal-status-select" class="form-control">
+            <option value="Not Started">Not Started</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+          <button type="button" class="btn btn-secondary" onclick="closeProgressModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
