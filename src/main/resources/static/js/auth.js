@@ -5,6 +5,24 @@ const SESSION_KEY = 'jss_current_user';
 const Auth = {
   // Login verification
   login: (username, password) => {
+    if (useBackend) {
+      try {
+        const res = makeRequest('POST', '/api/auth/login', { username, password });
+        if (res && res.success) {
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+            username: res.username,
+            role: res.role,
+            name: res.name
+          }));
+          return { success: true, role: res.role };
+        } else {
+          return { success: false, message: res.message || 'Invalid username or password' };
+        }
+      } catch (err) {
+        console.error('Backend Login failed, falling back to LocalStorage:', err);
+      }
+    }
+
     const users = DB.get('jss_users');
     const user = users.find(u => u.username.toLowerCase() === username.toLowerCase() && u.password === password);
     
@@ -21,6 +39,24 @@ const Auth = {
 
   // Register visitor user
   registerVisitor: (username, name, password) => {
+    if (useBackend) {
+      try {
+        const res = makeRequest('POST', '/api/auth/register-visitor', { username, name, password });
+        if (res && res.success) {
+          sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+            username: res.username,
+            role: res.role,
+            name: res.name
+          }));
+          return { success: true };
+        } else {
+          return { success: false, message: res.message || 'Registration failed' };
+        }
+      } catch (err) {
+        console.error('Backend Registration failed, falling back to LocalStorage:', err);
+      }
+    }
+
     const users = DB.get('jss_users');
     const exists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
     
