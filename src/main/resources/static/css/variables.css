@@ -1,0 +1,43 @@
+:root {
+  /* Colors */
+  --bg-primary: #0a0c10;
+  --bg-secondary: #121620;
+  --bg-card: rgba(22, 27, 38, 0.75);
+  --bg-card-hover: rgba(32, 38, 52, 0.85);
+  
+  /* Brand JSS Gold Colors */
+  --gold-primary: #dfb743;
+  --gold-light: #f3d070;
+  --gold-dark: #b89025;
+  --gold-gradient: linear-gradient(135deg, #f3d070 0%, #dfb743 50%, #b89025 100%);
+  
+  /* Status Colors */
+  --status-success: #00e676;
+  --status-warning: #ffb300;
+  --status-danger: #ff3d00;
+  --status-info: #00b0ff;
+  
+  /* Text Colors */
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --text-dark: #0f172a;
+  
+  /* Borders and Glows */
+  --border-color: rgba(223, 183, 67, 0.15);
+  --border-color-hover: rgba(223, 183, 67, 0.35);
+  --glow-gold: 0 0 15px rgba(223, 183, 67, 0.25);
+  --glow-gold-intense: 0 0 25px rgba(223, 183, 67, 0.45);
+  --glow-spark: 0 0 8px #ffb300;
+  
+  /* Fonts */
+  --font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Layout */
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 20px;
+}
