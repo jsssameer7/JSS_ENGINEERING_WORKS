@@ -153,45 +153,15 @@
     </div>
   </section>
 
-  <!-- Capabilities Showcase Section (Underneath the fold) -->
-  <section class="capabilities-section" id="capabilities">
-    <h2 class="section-title">Core Specializations & Completed Works</h2>
+  <!-- Portfolio Showcase Section -->
+  <section class="capabilities-section" id="capabilities" style="background-color: var(--bg-secondary); padding: 90px 8%; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100%;">
+    <h2 class="section-title">JSS Fabrication Portfolio Showcase</h2>
+    <p style="color: var(--text-muted); text-align: center; max-width: 600px; margin: -30px auto 50px; font-size: 0.95rem; line-height: 1.5;">
+      Explore our complete catalog of structural steel works. Click on any project card to view the image in fullscreen high-resolution.
+    </p>
     
-    <div class="capabilities-grid">
-      
-      <!-- Card 1 -->
-      <div class="capability-card">
-        <div class="capability-img">
-          <img src="assets/work1.jpg" alt="Steel Truss Framework">
-        </div>
-        <div class="capability-body">
-          <h3>Steel Truss Frameworks</h3>
-          <p>Precision welded structural trusses engineered to bear high roof loads and span across wide industrial plant floors safely.</p>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="capability-card">
-        <div class="capability-img">
-          <img src="assets/work2.jpg" alt="Corrugated Roofing Claddings">
-        </div>
-        <div class="capability-body">
-          <h3>Roofing & Wall Cladding</h3>
-          <p>Durable warehouse roofing sheet assemblies and corrugated wall panels cladding featuring full alignment audits.</p>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="capability-card">
-        <div class="capability-img">
-          <img src="assets/work3.jpg" alt="Warehouse Shed Assembly">
-        </div>
-        <div class="capability-body">
-          <h3>Industrial Shed Construction</h3>
-          <p>End-to-end custom design alignment, welding columns, purlins, and steel frames for heavy industrial factory projects.</p>
-        </div>
-      </div>
-
+    <div class="portfolio-grid" id="portfolio-showcase-grid">
+      <!-- Injected dynamically via JS -->
     </div>
   </section>
 
@@ -209,7 +179,6 @@
       <div class="auth-tabs">
         <button class="auth-tab active" data-tab="admin">Admin</button>
         <button class="auth-tab" data-tab="worker">Worker</button>
-        <button class="auth-tab" data-tab="visitor">Visitor</button>
       </div>
 
       <!-- Admin Login Form -->
@@ -242,46 +211,6 @@
         </button>
       </form>
 
-      <!-- Visitor Login Form -->
-      <form id="visitor-login-form" class="auth-form" onsubmit="handleAuthSubmit(event, 'visitor-login')">
-        <div class="form-group">
-          <label for="visitor-username">Visitor Username</label>
-          <input type="text" id="visitor-username" class="form-control" placeholder="Enter username" required>
-        </div>
-        <div class="form-group">
-          <label for="visitor-password">Password</label>
-          <input type="password" id="visitor-password" class="form-control" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-          Enter Visitor Portal
-        </button>
-        <div class="auth-footer">
-          New Visitor? <span class="register-link" onclick="toggleVisitorForm('register')">Create an Account</span>
-        </div>
-      </form>
-
-      <!-- Visitor Register Form -->
-      <form id="visitor-register-form" class="auth-form" onsubmit="handleAuthSubmit(event, 'visitor-register')">
-        <div class="form-group">
-          <label for="reg-name">Full Name</label>
-          <input type="text" id="reg-name" class="form-control" placeholder="Enter full name" required>
-        </div>
-        <div class="form-group">
-          <label for="reg-username">Choose Username</label>
-          <input type="text" id="reg-username" class="form-control" placeholder="Choose username" required>
-        </div>
-        <div class="form-group">
-          <label for="reg-password">Password</label>
-          <input type="password" id="reg-password" class="form-control" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
-          Register & Sign-in
-        </button>
-        <div class="auth-footer">
-          Already have an account? <span class="register-link" onclick="toggleVisitorForm('login')">Login here</span>
-        </div>
-      </form>
-
       <!-- Demo Credentials Quick Fill -->
       <div class="demo-box">
         <div class="demo-title">
@@ -296,10 +225,6 @@
           <div class="demo-credential-item">
             <span>Worker Hub: <strong>worker1</strong></span>
             <button class="demo-credential-btn" onclick="quickFill('worker', 'worker1', 'worker123')">Autofill</button>
-          </div>
-          <div class="demo-credential-item">
-            <span>Visitor (Demo): <strong>visitor1</strong></span>
-            <button class="demo-credential-btn" onclick="quickFill('visitor', 'visitor1', 'visitor123')">Autofill</button>
           </div>
         </div>
       </div>
@@ -352,16 +277,12 @@
       } else if (role === 'worker') {
         document.getElementById('worker-username').value = user;
         document.getElementById('worker-password').value = pass;
-      } else {
-        toggleVisitorForm('login');
-        document.getElementById('visitor-username').value = user;
-        document.getElementById('visitor-password').value = pass;
       }
       
       showAlert('Credentials Filled', `Auto-populated credentials for ${role.toUpperCase()}. Click submit to continue!`, 'info');
     }
 
-    // Login and register form submissions
+    // Login submissions
     function handleAuthSubmit(event, type) {
       event.preventDefault();
       
@@ -374,28 +295,6 @@
         const user = document.getElementById('worker-username').value;
         const pass = document.getElementById('worker-password').value;
         res = Auth.login(user, pass);
-      } else if (type === 'visitor-login') {
-        const user = document.getElementById('visitor-username').value;
-        const pass = document.getElementById('visitor-password').value;
-        
-        // Ensure visitor1 exists
-        const users = DB.get('jss_users');
-        if (user === 'visitor1' && !users.some(u => u.username === 'visitor1')) {
-          users.push({ username: 'visitor1', password: 'visitor123', role: 'visitor', name: 'Visitor Demo Account' });
-          DB.set('jss_users', users);
-        }
-        
-        res = Auth.login(user, pass);
-      } else if (type === 'visitor-register') {
-        const name = document.getElementById('reg-name').value;
-        const user = document.getElementById('reg-username').value;
-        const pass = document.getElementById('reg-password').value;
-        res = Auth.registerVisitor(user, name, pass);
-        if (res.success) {
-          showAlert('Account Created', 'Visitor account registered. Entering portal...', 'success');
-          setTimeout(() => { window.location.href = 'visitor.html'; }, 1000);
-          return;
-        }
       }
 
       if (res && res.success) {
@@ -447,6 +346,7 @@
       currentSlideIdx = index;
     }
 
+    // Fullscreen swipe triggers
     function nextSlide() {
       let nextIdx = (currentSlideIdx + 1) % slides.length;
       showSlide(nextIdx);
@@ -497,6 +397,125 @@
         if (videoTouchEndX > videoTouchStartX + 50) navigateVideo(-1); // Swiped right -> prev
       }, { passive: true });
     }
+
+    // Dynamic Portfolio Showcase & Fullscreen Lightbox
+    const JSS_WORKS = [
+      { img: 'assets/work1.jpg', title: 'Heavy Structural Steel Framework', badge: 'AWS D1.1', desc: 'Welding support trusses and crane girder structures. Double-pass MIG/FCAW beads inspected under full ultrasonic guidelines.', process: 'MIG / Flux-Cored' },
+      { img: 'assets/work2.jpg', title: 'Corrugated Sheet Cladding Installation', badge: 'Industrial Spec', desc: 'Installation of high-quality corrugated metal sheets for wall cladding, alignment, and seal insulation.', process: 'Cladding Assembly' },
+      { img: 'assets/work3.jpg', title: 'Industrial Shed Roof Assembly', badge: 'AWS D1.1', desc: 'Fabricating and lifting roofing truss structures for medium and large industrial warehouses.', process: 'SMAW Structural' },
+      { img: 'assets/work4.jpg', title: 'Completed Roofing Cover', badge: 'Profile Roofing', desc: 'Finished corrugated profile roof sheets installed on factory building trusses, waterproof checked.', process: 'Profile Roofing' },
+      { img: 'assets/work_5.jpg', title: 'Truss Roof Frame Assembly', badge: 'AWS D1.1', desc: 'High-strength steel truss frames assembled and aligned on site before primary columns installation.', process: 'MIG / TIG Tack' },
+      { img: 'assets/work_6.jpg', title: 'Wall Corrugated Panel Installation', badge: 'Industrial Spec', desc: 'Corrugated sheeting installed on the warehouse side wall using weather-sealed self-tapping screws.', process: 'Siding Assembly' },
+      { img: 'assets/work_7.jpg', title: 'Roof Support Structures', badge: 'API 650', desc: 'Purlins and support columns fabricated and aligned to bear heavy sheet loads.', process: 'MIG Welding' },
+      { img: 'assets/work_8.jpg', title: 'Steel Framing Truss Structure', badge: 'AWS D1.1', desc: 'Welded steel trusses hoisted for large factory bay construction, certified double passes.', process: 'Flux-Cored Arc' },
+      { img: 'assets/work_9.jpg', title: 'Factory Shed Roofing Installation', badge: 'ASME Sec IX', desc: 'Installing roof panels on factory columns, structural alignment checked.', process: 'Shed Construction' },
+      { img: 'assets/work_10.jpg', title: 'Structural Columns and Purlins', badge: 'Safety Certified', desc: 'Primary structural vertical support columns welded and bolted to factory foundations.', process: 'Heavy Columns' },
+      { img: 'assets/work_11.jpg', title: 'Completed Roofing Cover Assembly', badge: 'Industrial Spec', desc: 'Full shed roofing overlay completed and inspected for quality bead alignment.', process: 'Roof Cladding' },
+      { img: 'assets/work_12.jpg', title: 'Heavy Fabrication and Truss Alignment', badge: 'AWS D1.1', desc: 'Welders aligning support girders using overhead cranes. WPS specs followed.', process: 'Heavy Assembly' },
+      { img: 'assets/work_13.jpg', title: 'Welded Roof Truss Framework', badge: 'ASME Sec IX', desc: 'Closer view of completed structural truss welding joints, visual quality inspected.', process: 'MIG Welded cap' },
+      { img: 'assets/work_14.jpg', title: 'Industrial Fabrication Site Work', badge: 'Safety Certified', desc: 'Fabricators assembling portal frames, horizontal trusses, and side braces on site.', process: 'Site Fabrication' }
+    ];
+
+    let activeLightboxIndex = 0;
+
+    function renderPortfolioGrid() {
+      const grid = document.getElementById('portfolio-showcase-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      JSS_WORKS.forEach((w, index) => {
+        const card = document.createElement('div');
+        card.className = 'glass-panel portfolio-card';
+        card.style.cursor = 'pointer';
+        card.onclick = () => openLightbox(index);
+
+        card.innerHTML = `
+          <div class="portfolio-img">
+            <img src="${w.img}" class="portfolio-img-cover" alt="${w.title}">
+            <span class="portfolio-badge">${w.badge}</span>
+          </div>
+          <div class="portfolio-body">
+            <div>
+              <h3>${w.title}</h3>
+              <p>${w.desc}</p>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--gold-light); margin-top: 10px;">${w.process}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openLightbox(index) {
+      activeLightboxIndex = index;
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+
+      img.src = JSS_WORKS[index].img;
+      caption.innerText = `${JSS_WORKS[index].title} (${index + 1} of ${JSS_WORKS.length})`;
+      
+      modal.style.display = 'flex';
+      modal.classList.add('show');
+    }
+
+    function closeLightbox(event) {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 100);
+    }
+
+    function navigateLightbox(direction, event) {
+      if (event) event.stopPropagation();
+      activeLightboxIndex = (activeLightboxIndex + direction + JSS_WORKS.length) % JSS_WORKS.length;
+      
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = JSS_WORKS[activeLightboxIndex].img;
+        caption.innerText = `${JSS_WORKS[activeLightboxIndex].title} (${activeLightboxIndex + 1} of ${JSS_WORKS.length})`;
+        img.style.opacity = '1';
+      }, 150);
+    }
+
+    // Touch and Swipe navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleSwipeGesture() {
+      if (touchEndX < touchStartX - 50) navigateLightbox(1);
+      if (touchEndX > touchStartX + 50) navigateLightbox(-1);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPortfolioGrid();
+
+      const modal = document.getElementById('lightbox-modal');
+      if (modal) {
+        modal.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        modal.addEventListener('touchend', e => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipeGesture();
+        }, { passive: true });
+      }
+
+      document.addEventListener('keydown', e => {
+        const modal = document.getElementById('lightbox-modal');
+        if (modal && modal.classList.contains('show')) {
+          if (e.key === 'ArrowRight') navigateLightbox(1);
+          else if (e.key === 'ArrowLeft') navigateLightbox(-1);
+          else if (e.key === 'Escape') closeLightbox();
+        }
+      });
+    });
   </script>
 </body>
 </html>
+
