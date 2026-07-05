@@ -41,3 +41,23 @@
   --border-radius-sm: 8px;
   --border-radius-lg: 20px;
 }
+
+[data-theme="light"] {
+  /* Colors */
+  --bg-primary: #f8fafc;
+  --bg-secondary: #e2e8f0;
+  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  
+  /* Text Colors */
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dark: #f8fafc;
+  
+  /* Borders and Glows */
+  --border-color: rgba(223, 183, 67, 0.3);
+  --border-color-hover: rgba(223, 183, 67, 0.5);
+  --glow-gold: 0 4px 20px rgba(223, 183, 67, 0.12);
+  --glow-gold-intense: 0 8px 30px rgba(223, 183, 67, 0.2);
+}
+
