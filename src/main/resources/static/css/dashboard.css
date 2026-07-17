@@ -308,3 +308,139 @@ table.dashboard-table tr:hover td {
   .stat-grid { grid-template-columns: 1fr; }
   .dashboard-panel { padding: 20px; }
 }
+
+/* Printable/Print-preview Invoice Styles */
+.invoice-container {
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 30px;
+  border: 2px solid #000000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.inv-main-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: 1px solid #000;
+  border-bottom: none;
+  padding: 8px;
+  color: #000000 !important;
+}
+
+.inv-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 2px solid #000;
+  color: #000000 !important;
+  background: #ffffff !important;
+}
+
+.inv-table td, .inv-table th {
+  border: 1px solid #000;
+  padding: 8px;
+  color: #000000 !important;
+}
+
+.inv-header-table {
+  border-bottom: none;
+}
+
+.inv-section-bar {
+  border-left: 2px solid #000;
+  border-right: 2px solid #000;
+  text-align: center;
+  font-weight: bold;
+  padding: 5px;
+  background: #f1f5f9;
+  font-size: 0.9rem;
+  text-transform: capitalize;
+  color: #000000 !important;
+}
+
+.inv-customer-table {
+  border-top: 2px solid #000;
+  border-bottom: none;
+}
+
+.inv-items-table {
+  border-top: 2px solid #000;
+}
+
+.inv-items-table th {
+  background: #f8fafc;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  font-size: 0.85rem;
+}
+
+.inv-items-table td {
+  padding: 10px 8px;
+}
+
+/* Print CSS Overrides */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  /* Hide all dashboard chrome/sidebar/panels */
+  .app-header, 
+  .panel-tabs, 
+  .stat-grid, 
+  .panel-header, 
+  #invoice-editor-form, 
+  .btn, 
+  .theme-toggle-btn, 
+  .header-user, 
+  .user-badge,
+  .alert-container {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  .container.dashboard-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .tab-section {
+    display: block !important;
+  }
+  
+  .dashboard-grid {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  
+  /* Hide editor column completely in print */
+  .dashboard-grid > div:first-child {
+    display: none !important;
+    visibility: hidden !important;
+  }
+  
+  /* Force invoice container to start at top and hide border shadow */
+  .invoice-container {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 0 !important;
+  }
+}
+

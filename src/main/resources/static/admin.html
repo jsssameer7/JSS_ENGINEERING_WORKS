@@ -82,13 +82,13 @@
       </div>
     </div>
 
-    <!-- Tab navigation -->
     <div class="panel-tabs">
       <button class="panel-tab-btn active" id="tab-projects" onclick="switchDashboardTab('projects')">Projects & Jobs</button>
       <button class="panel-tab-btn" id="tab-workers" onclick="switchDashboardTab('workers')">Workers Registry</button>
       <button class="panel-tab-btn" id="tab-visitors" onclick="switchDashboardTab('visitors')">Visitor Access Permits</button>
       <button class="panel-tab-btn" id="tab-hazards" onclick="switchDashboardTab('hazards')">Safety Alerts (<span id="hazard-badge-count">0</span>)</button>
       <button class="panel-tab-btn" id="tab-leaves" onclick="switchDashboardTab('leaves')">Leave Approvals (<span id="leave-badge-count">0</span>)</button>
+      <button class="panel-tab-btn" id="tab-billing" onclick="switchDashboardTab('billing')">Bill Generator</button>
     </div>
 
     <!-- PROJECTS TAB PANELS -->
@@ -306,6 +306,167 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+
+    <!-- BILLING (INVOICE GENERATOR) PANEL -->
+    <div id="section-billing" class="tab-section" style="display: none;">
+      <div class="dashboard-grid" style="grid-template-columns: 1fr 1.2fr; gap: 30px; align-items: start;">
+        
+        <!-- Left Side: Interactive Editor -->
+        <div class="glass-panel dashboard-panel" style="padding: 25px;">
+          <div class="panel-header">
+            <h2 class="panel-title">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              Invoice Details
+            </h2>
+          </div>
+          
+          <form id="invoice-editor-form" oninput="updateInvoicePreview()">
+            <!-- Invoice Info -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+              <div class="form-group">
+                <label for="inv-date">Invoice Date</label>
+                <input type="date" id="inv-date" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="inv-num">Invoice Number</label>
+                <input type="text" id="inv-num" class="form-control" placeholder="Optional" value="128">
+              </div>
+            </div>
+
+            <!-- Customer Info -->
+            <div class="form-group" style="margin-bottom: 15px;">
+              <label for="inv-cust-name">Bill To (Customer Name)</label>
+              <input type="text" id="inv-cust-name" class="form-control" placeholder="e.g. KATARIYA MOVERS" value="KATARIYA MOVERS" required>
+            </div>
+            
+            <div class="form-group" style="margin-bottom: 15px;">
+              <label for="inv-cust-address">Customer Address</label>
+              <textarea id="inv-cust-address" class="form-control" rows="3" placeholder="Enter customer address..." required>PLOT No. 39, GHORPADE NAGAR, BEHIND BPCL PETROL PUMP, HOSPET-BALLARI MAIN ROAD, TORANAGALLU-583 123</textarea>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 15px;">
+              <label for="inv-cust-gstin">Customer GSTIN</label>
+              <input type="text" id="inv-cust-gstin" class="form-control" placeholder="Optional (e.g. GSTIN: 29AAAAA1111A1Z1)" value="">
+            </div>
+
+            <h3 style="font-size: 0.95rem; color: var(--gold-light); margin: 25px 0 10px 0; border-bottom: 1px solid var(--border-color); padding-bottom: 5px; display: flex; justify-content: space-between; align-items: center;">
+              <span>Invoice Items</span>
+              <button type="button" class="btn btn-secondary" style="padding: 4px 10px; font-size: 0.75rem;" onclick="addInvoiceItemRow()">+ Add Row</button>
+            </h3>
+
+            <!-- Dynamic Items Editor Table -->
+            <div style="max-height: 250px; overflow-y: auto; margin-bottom: 20px; border: 1px solid var(--border-color); border-radius: var(--border-radius-sm);">
+              <table class="dashboard-table" style="margin: 0; font-size: 0.85rem;">
+                <thead>
+                  <tr style="background: rgba(0,0,0,0.2);">
+                    <th style="width: 50%;">Service Description</th>
+                    <th style="width: 20%;">Qty</th>
+                    <th style="width: 15%;">Rate</th>
+                    <th style="width: 15%;">Delete</th>
+                  </tr>
+                </thead>
+                <tbody id="invoice-items-editor-tbody">
+                  <!-- Row inputs dynamically rendered here -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Advance Paid -->
+            <div class="form-group" style="margin-bottom: 20px;">
+              <label for="inv-advance">Advance Payment Received (₹)</label>
+              <input type="number" id="inv-advance" class="form-control" value="90000" placeholder="e.g. 90000" oninput="updateInvoicePreview()">
+            </div>
+            
+            <button type="button" class="btn btn-primary" style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;" onclick="printInvoice()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              Print / Download Invoice PDF
+            </button>
+          </form>
+        </div>
+
+        <!-- Right Side: Live Document Preview -->
+        <div style="position: sticky; top: 100px;">
+          <!-- Invoice Print Container -->
+          <div id="invoice-print-container" class="invoice-container">
+            <!-- Heading -->
+            <div class="inv-main-title">INVOICE</div>
+            
+            <!-- Seller Box / Header Info -->
+            <table class="inv-table inv-header-table">
+              <tr>
+                <td style="width: 65%; font-size: 0.85rem; line-height: 1.4;">
+                  <strong>Name: JAFFAR SHAREEF</strong><br>
+                  Address: WARD NO-18, ATP ROAD, JANATHA NAGAR, BALLARI-583101<br>
+                  State: KARNATAKA<br>
+                  State Code: KA<br>
+                  <strong>PAN AAHPZ8535G</strong>
+                </td>
+                <td style="width: 35%; text-align: center; font-weight: bold; font-size: 0.95rem; vertical-align: middle; background: #fff; color: #000;">
+                  ORIGINAL FOR RECEIPMENT
+                </td>
+              </tr>
+            </table>
+
+            <!-- Bill To Section Header -->
+            <div class="inv-section-bar">Bill to</div>
+
+            <!-- Customer Details Block -->
+            <table class="inv-table inv-customer-table">
+              <tr>
+                <td style="width: 65%; font-size: 0.95rem; line-height: 1.4; vertical-align: top;">
+                  <strong id="preview-cust-name" style="font-size: 1.1rem;">KATARIYA MOVERS</strong><br>
+                  <span id="preview-cust-address">PLOT No. 39, GHORPADE NAGAR, BEHIND BPCL PETROL PUMP, HOSPET-BALLARI MAIN ROAD, TORANAGALLU-583 123</span>
+                </td>
+                <td style="width: 35%; font-size: 0.95rem; font-weight: bold; vertical-align: middle; text-align: center;">
+                  Invoice Date: <span id="preview-inv-date">11.7.26</span>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="font-weight: bold; font-size: 0.95rem; border-top: 1px solid #000;">
+                  GSTIN: <span id="preview-cust-gstin" style="font-weight: normal;"></span>
+                </td>
+              </tr>
+            </table>
+
+            <!-- Items Table -->
+            <table class="inv-table inv-items-table">
+              <thead>
+                <tr>
+                  <th style="width: 8%;">SI.No</th>
+                  <th style="width: 52%; text-align: left; padding-left: 10px;">Description of Service</th>
+                  <th style="width: 15%;">QTY</th>
+                  <th style="width: 10%;">RATE</th>
+                  <th style="width: 15%;">AMOUNT</th>
+                </tr>
+              </thead>
+              <tbody id="preview-items-tbody">
+                <!-- Rows injected dynamically via updateInvoicePreview() -->
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="4" style="text-align: right; font-weight: bold; padding-right: 15px; font-size: 0.85rem;">TOTAL</td>
+                  <td style="font-weight: bold; text-align: right; padding-right: 10px;" id="preview-total">2,58,652.00</td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align: right; font-weight: bold; padding-right: 15px; font-size: 0.85rem;">ADVANCE</td>
+                  <td style="font-weight: bold; text-align: right; padding-right: 10px;" id="preview-advance">90,000.00</td>
+                </tr>
+                <tr>
+                  <td colspan="4" style="text-align: right; font-weight: bold; padding-right: 15px; font-size: 0.85rem;">BALANCE</td>
+                  <td style="font-weight: bold; text-align: right; padding-right: 10px;" id="preview-balance">1,68,652.00</td>
+                </tr>
+                <tr>
+                  <td colspan="5" style="font-size: 0.85rem; line-height: 1.4; padding: 10px;">
+                    <strong>AMOUNT IN WORDS:</strong> <span id="preview-words" style="font-style: italic;">One Lakh Sixty-Eight Thousand Six Hundred Fifty-Two only......</span>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
 

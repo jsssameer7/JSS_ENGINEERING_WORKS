@@ -25,6 +25,10 @@ function switchDashboardTab(tab) {
   document.getElementById(`section-${tab}`).style.display = 'block';
   // Activate tab button
   document.getElementById(`tab-${tab}`).classList.add('active');
+
+  if (tab === 'billing') {
+    initInvoiceGenerator();
+  }
 }
 
 // Initialize Admin dashboard data
@@ -399,3 +403,188 @@ function processLeaveRequest(leaveId, decision) {
   showAlert('Leave Processed', `Leave request has been ${decision.toUpperCase()}.`, type);
   initAdminDashboard();
 }
+
+// --- BILL GENERATOR TAB CONTROLLER ---
+
+// Default Seed Items
+const DEFAULT_INVOICE_ITEMS = [
+  { desc: 'SQURE TUBE', qty: '5272 kg', rate: 26 },
+  { desc: 'ANGAL BOX', qty: '1980 kg', rate: 22 },
+  { desc: 'SHEETING', qty: '678 sq.m', rate: 90 },
+  { desc: 'FLASING', qty: '150 sq.m', rate: 80 },
+  { desc: 'AUTO CHARGE', qty: '', rate: 1500 }, // Manual Amount
+  { desc: 'BOLT & NUT\'S', qty: '', rate: 3500 } // Manual Amount
+];
+
+// Initialize Invoice Page inputs
+function initInvoiceGenerator() {
+  // Set Date Input to Today's date
+  const dateInput = document.getElementById('inv-date');
+  if (dateInput && !dateInput.value) {
+    dateInput.value = new Date().toISOString().split('T')[0];
+  }
+  
+  // Render default seeded rows
+  const tbody = document.getElementById('invoice-items-editor-tbody');
+  if (tbody && tbody.children.length === 0) {
+    DEFAULT_INVOICE_ITEMS.forEach(item => {
+      addInvoiceItemRow(item.desc, item.qty, item.rate);
+    });
+  }
+  
+  updateInvoicePreview();
+}
+
+// Add Item Row to Editor
+function addInvoiceItemRow(desc = '', qty = '', rate = '') {
+  const tbody = document.getElementById('invoice-items-editor-tbody');
+  if (!tbody) return;
+
+  const row = document.createElement('tr');
+  row.className = 'invoice-editor-row';
+  row.innerHTML = `
+    <td>
+      <input type="text" class="form-control item-desc" placeholder="Service description..." value="${desc}" style="padding: 6px 8px; font-size: 0.85rem;" required>
+    </td>
+    <td>
+      <input type="text" class="form-control item-qty" placeholder="e.g. 100 kg" value="${qty}" style="padding: 6px 8px; font-size: 0.85rem;">
+    </td>
+    <td>
+      <input type="number" class="form-control item-rate" placeholder="e.g. 50" value="${rate}" style="padding: 6px 8px; font-size: 0.85rem;" required>
+    </td>
+    <td style="text-align: center; vertical-align: middle;">
+      <button type="button" class="btn btn-danger" style="padding: 4px 8px; font-size: 0.75rem;" onclick="this.closest('tr').remove(); updateInvoicePreview();">&times;</button>
+    </td>
+  `;
+  tbody.appendChild(row);
+  updateInvoicePreview();
+}
+
+// Format number into Indian Currency format with commas (e.g. 1,68,652.00)
+function formatIndianCurrency(num) {
+  const rounded = parseFloat(num).toFixed(2);
+  const parts = rounded.split('.');
+  let lastThree = parts[0].substring(parts[0].length - 3);
+  const otherParts = parts[0].substring(0, parts[0].length - 3);
+  if (otherParts !== '') {
+    lastThree = ',' + lastThree;
+  }
+  const formattedInt = otherParts.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+  return formattedInt + '.' + parts[1];
+}
+
+// Helper to convert number to Rupees words (Indian numbering system)
+function convertNumberToWords(num) {
+  num = Math.floor(num); // only work with whole number for simple rupees words
+  if (num === 0) return 'Zero only';
+  
+  const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+  const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+  function numToWords(n, suffix) {
+    let str = "";
+    if (n > 19) {
+      str += b[Math.floor(n / 10)] + " " + a[n % 10];
+    } else {
+      str += a[n];
+    }
+    if (n) {
+      str += suffix;
+    }
+    return str;
+  }
+
+  let words = "";
+  // Crore
+  words += numToWords(Math.floor(num / 10000000), "Crore ");
+  // Lakh
+  words += numToWords(Math.floor((num / 100000) % 100), "Lakh ");
+  // Thousand
+  words += numToWords(Math.floor((num / 1000) % 100), "Thousand ");
+  // Hundred
+  words += numToWords(Math.floor((num / 100) % 10), "Hundred ");
+  
+  if (num > 100 && num % 100) {
+    words += "and ";
+  }
+  
+  words += numToWords(num % 100, "");
+  
+  return (words.trim() + " only").replace(/\s+/g, ' ');
+}
+
+// Update Live Preview from form state
+function updateInvoicePreview() {
+  const custName = document.getElementById('inv-cust-name').value || 'KATARIYA MOVERS';
+  const custAddress = document.getElementById('inv-cust-address').value || '';
+  const custGstin = document.getElementById('inv-cust-gstin').value || '';
+  const invDateVal = document.getElementById('inv-date').value;
+  
+  // Format Date for preview (e.g. 11.7.2026 or 11.7.26)
+  let dateText = 'N/A';
+  if (invDateVal) {
+    const d = new Date(invDateVal);
+    dateText = `${d.getDate()}.${d.getMonth() + 1}.${d.getFullYear().toString().substring(2)}`;
+  }
+
+  // Update Headers
+  document.getElementById('preview-cust-name').innerText = custName.toUpperCase();
+  document.getElementById('preview-cust-address').innerText = custAddress;
+  document.getElementById('preview-inv-date').innerText = dateText;
+  document.getElementById('preview-cust-gstin').innerText = custGstin ? custGstin.toUpperCase() : '';
+
+  // Calculate items sum
+  const rows = document.querySelectorAll('.invoice-editor-row');
+  const previewTbody = document.getElementById('preview-items-tbody');
+  if (!previewTbody) return;
+  
+  previewTbody.innerHTML = '';
+  let grandTotal = 0;
+
+  rows.forEach((row, index) => {
+    const desc = row.querySelector('.item-desc').value;
+    const qtyText = row.querySelector('.item-qty').value;
+    const rateVal = parseFloat(row.querySelector('.item-rate').value) || 0;
+
+    // Calculate Amount
+    let qtyNum = parseFloat(qtyText);
+    let amount = 0;
+    if (!isNaN(qtyNum)) {
+      amount = qtyNum * rateVal;
+    } else {
+      amount = rateVal; // e.g. AUTO CHARGE, Qty is empty -> rate is amount
+    }
+
+    grandTotal += amount;
+
+    // Inject row in preview
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align: center;">${index + 1}</td>
+      <td style="text-align: left; padding-left: 10px; font-weight: bold; color: #000;">${desc.toUpperCase()}</td>
+      <td style="text-align: center; color: #000;">${qtyText || '-'}</td>
+      <td style="text-align: center; color: #000;">${qtyText ? rateVal : '-'}</td>
+      <td style="text-align: right; padding-right: 10px; font-weight: bold; color: #000;">${formatIndianCurrency(amount).split('.')[0]}</td>
+    `;
+    previewTbody.appendChild(tr);
+  });
+
+  // Calculate Advance and Balance
+  const advanceVal = parseFloat(document.getElementById('inv-advance').value) || 0;
+  const balanceVal = grandTotal - advanceVal;
+
+  // Format Totals
+  document.getElementById('preview-total').innerText = formatIndianCurrency(grandTotal).split('.')[0];
+  document.getElementById('preview-advance').innerText = formatIndianCurrency(advanceVal).split('.')[0];
+  document.getElementById('preview-balance').innerText = formatIndianCurrency(balanceVal).split('.')[0];
+
+  // Generate Amount in Words
+  const wordText = convertNumberToWords(balanceVal);
+  document.getElementById('preview-words').innerText = wordText + "......";
+}
+
+// Print dialog helper
+function printInvoice() {
+  window.print();
+}
+
