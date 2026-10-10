@@ -595,3 +595,121 @@ table.dashboard-table tr:hover td {
   }
 }
 
+/* ===================================================
+   LIGHT THEME (WHITE) STYLES FOR ADMIN DASHBOARD
+   =================================================== */
+
+[data-theme="light"] .app-header {
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="light"] .header-title-container .header-title {
+  color: #92400e !important;
+}
+
+[data-theme="light"] .header-title-container .header-subtitle {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .user-badge {
+  background: #f1f5f9 !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .glass-panel {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .stat-card {
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+}
+
+[data-theme="light"] .stat-icon {
+  background: rgba(180, 83, 9, 0.1) !important;
+  border-color: rgba(180, 83, 9, 0.3) !important;
+  color: #b45309 !important;
+}
+
+[data-theme="light"] .stat-value {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .stat-label {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .panel-tabs {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+[data-theme="light"] .panel-tab-btn {
+  color: #475569 !important;
+  background: rgba(0, 0, 0, 0.03) !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="light"] .panel-tab-btn:hover {
+  color: #0f172a !important;
+  background: #f1f5f9 !important;
+}
+
+[data-theme="light"] .panel-tab-btn.active {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  color: #ffffff !important;
+  border-color: #b45309 !important;
+  box-shadow: 0 2px 10px rgba(180, 83, 9, 0.3) !important;
+}
+
+[data-theme="light"] .panel-title {
+  color: #92400e !important;
+}
+
+[data-theme="light"] .panel-subtitle {
+  color: #475569 !important;
+}
+
+[data-theme="light"] table.dashboard-table th {
+  color: #475569 !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  background: #f8fafc !important;
+}
+
+[data-theme="light"] table.dashboard-table td {
+  color: #1e293b !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+[data-theme="light"] table.dashboard-table tr:hover td {
+  background: #f8fafc !important;
+}
+
+[data-theme="light"] .form-control {
+  background: #f8fafc !important;
+  border: 1.5px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .form-control:focus {
+  background: #ffffff !important;
+  border-color: #b45309 !important;
+  box-shadow: 0 0 0 3px rgba(180, 83, 9, 0.18) !important;
+}
+
+[data-theme="light"] .btn-secondary {
+  background: #f1f5f9 !important;
+  color: #1e293b !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+[data-theme="light"] .btn-secondary:hover {
+  background: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+

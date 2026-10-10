@@ -45,19 +45,33 @@
 [data-theme="light"] {
   /* Colors */
   --bg-primary: #f8fafc;
-  --bg-secondary: #e2e8f0;
-  --bg-card: rgba(255, 255, 255, 0.8);
-  --bg-card-hover: rgba(255, 255, 255, 0.95);
+  --bg-secondary: #eef2f6;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  
+  /* Brand JSS Gold Colors - Deep, rich, high-contrast amber/gold for light mode */
+  --gold-primary: #b45309;       /* Amber-700 - AAA readable on white */
+  --gold-light: #92400e;         /* Amber-800 */
+  --gold-dark: #78350f;          /* Amber-900 */
+  --gold-gradient: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
+  
+  /* Status Colors */
+  --status-success: #15803d;
+  --status-warning: #b45309;
+  --status-danger: #b91c1c;
+  --status-info: #0284c7;
   
   /* Text Colors */
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --text-dark: #f8fafc;
+  --text-main: #0f172a;          /* Slate-900 deep black */
+  --text-muted: #334155;         /* Slate-700 */
+  --text-dark: #ffffff;
+  --text-light: #0f172a;
   
   /* Borders and Glows */
-  --border-color: rgba(223, 183, 67, 0.3);
-  --border-color-hover: rgba(223, 183, 67, 0.5);
-  --glow-gold: 0 4px 20px rgba(223, 183, 67, 0.12);
-  --glow-gold-intense: 0 8px 30px rgba(223, 183, 67, 0.2);
+  --border-color: rgba(180, 83, 9, 0.22);
+  --border-color-hover: rgba(180, 83, 9, 0.45);
+  --glow-gold: 0 4px 16px rgba(180, 83, 9, 0.15);
+  --glow-gold-intense: 0 6px 24px rgba(180, 83, 9, 0.25);
+  --glow-spark: 0 0 6px rgba(180, 83, 9, 0.35);
 }
 
