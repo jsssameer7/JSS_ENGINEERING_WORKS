@@ -309,33 +309,54 @@
         Watch the JSS Engineering structural welding process, overhead crane truss hoisting, and alignment checks carried out under full AWS D1.1 structural standards. Swipe or use controls to view more videos.
       </p>
       
-      <div class="video-slider-container" id="video-carousel" style="width: 100%; max-width: 720px; border-radius: var(--border-radius-sm); overflow: hidden; border: 1px solid var(--border-color); background: #000; box-shadow: var(--glow-gold); position: relative;">
+      <div class="video-slider-container" id="video-carousel" style="width: 100%; max-width: 760px; border-radius: var(--border-radius-sm); overflow: hidden; border: 1px solid var(--border-color); background: #000; box-shadow: var(--glow-gold); position: relative;">
         
         <!-- Video Slide 1 -->
         <div class="video-slide active" style="display: block; animation: fadeIn 0.5s ease;">
-          <video width="100%" controls poster="assets/work1.jpg" style="display: block;">
-            <source src="assets/welding_video_1.mp4" type="video/mp4">
+          <video width="100%" controls poster="assets/video_poster_1.jpg" preload="metadata" playsinline>
+            <source src="assets/video_showcase_1.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <div style="color: var(--gold-light); font-size: 0.9rem; padding: 12px; background: rgba(10, 12, 16, 0.9); font-weight: 500;">
-            Welding Process & Shop Floor Run - Video 1
+          <div class="video-caption">
+            <span>Plant Heavy Fabrication & Workshop Tour - Video 1</span>
+            <span class="video-badge">1080p HD • Fabrication</span>
           </div>
         </div>
 
         <!-- Video Slide 2 -->
         <div class="video-slide" style="display: none; animation: fadeIn 0.5s ease;">
-          <video width="100%" controls poster="assets/work2.jpg" style="display: block;">
-            <source src="assets/welding_video_2.mp4" type="video/mp4">
+          <video width="100%" controls poster="assets/video_poster_2.jpg" preload="metadata" playsinline>
+            <source src="assets/video_showcase_2.mp4" type="video/mp4">
             Your browser does not support the video tag.
           </video>
-          <div style="color: var(--gold-light); font-size: 0.9rem; padding: 12px; background: rgba(10, 12, 16, 0.9); font-weight: 500;">
-            Truss Alignment & Overhead Hoisting - Video 2
+          <div class="video-caption">
+            <span>Truss Alignment & Precision Welding Assembly - Video 2</span>
+            <span class="video-badge">1080p HD • ASME / AWS</span>
+          </div>
+        </div>
+
+        <!-- Video Slide 3 -->
+        <div class="video-slide" style="display: none; animation: fadeIn 0.5s ease;">
+          <video width="100%" controls poster="assets/video_poster_3.jpg" preload="metadata" playsinline>
+            <source src="assets/video_showcase_3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <div class="video-caption">
+            <span>On-Site Hoisting & Structural Rigging Run - Video 3</span>
+            <span class="video-badge">Site Run • Rigging</span>
           </div>
         </div>
 
         <!-- Nav Controls -->
-        <button class="carousel-nav-btn prev-btn" onclick="navigateVideo(-1)" style="position: absolute; left: 15px; top: 40%; transform: translateY(-50%); z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,255,255,0.1); color: var(--gold-primary); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">&lsaquo;</button>
-        <button class="carousel-nav-btn next-btn" onclick="navigateVideo(1)" style="position: absolute; right: 15px; top: 40%; transform: translateY(-50%); z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,255,255,0.1); color: var(--gold-primary); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">&rsaquo;</button>
+        <button class="carousel-nav-btn prev-btn" onclick="navigateVideo(-1)" style="position: absolute; left: 15px; top: 40%; transform: translateY(-50%); z-index: 10; width: 42px; height: 42px; border-radius: 50%; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,255,255,0.15); color: var(--gold-primary); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" aria-label="Previous Video">&lsaquo;</button>
+        <button class="carousel-nav-btn next-btn" onclick="navigateVideo(1)" style="position: absolute; right: 15px; top: 40%; transform: translateY(-50%); z-index: 10; width: 42px; height: 42px; border-radius: 50%; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,255,255,0.15); color: var(--gold-primary); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);" aria-label="Next Video">&rsaquo;</button>
+      </div>
+
+      <!-- Video Carousel Pagination Dots -->
+      <div class="video-dots" id="video-dots">
+        <span class="video-dot active" onclick="goToVideo(0)" title="Video 1"></span>
+        <span class="video-dot" onclick="goToVideo(1)" title="Video 2"></span>
+        <span class="video-dot" onclick="goToVideo(2)" title="Video 3"></span>
       </div>
     </div>
 

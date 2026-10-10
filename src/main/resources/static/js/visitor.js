@@ -260,6 +260,32 @@ document.addEventListener('DOMContentLoaded', () => {
 let activeVideoIdx = 0;
 const videoSlides = document.querySelectorAll('.video-slide');
 
+function updateVideoDots() {
+  const dots = document.querySelectorAll('#video-dots .video-dot');
+  dots.forEach((dot, idx) => {
+    if (idx === activeVideoIdx) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+function goToVideo(idx) {
+  if (videoSlides.length === 0 || idx === activeVideoIdx) return;
+  const currentVideo = videoSlides[activeVideoIdx].querySelector('video');
+  if (currentVideo) currentVideo.pause();
+
+  videoSlides[activeVideoIdx].style.display = 'none';
+  videoSlides[activeVideoIdx].classList.remove('active');
+
+  activeVideoIdx = (idx + videoSlides.length) % videoSlides.length;
+
+  videoSlides[activeVideoIdx].style.display = 'block';
+  videoSlides[activeVideoIdx].classList.add('active');
+  updateVideoDots();
+}
+
 function navigateVideo(direction) {
   if (videoSlides.length === 0) return;
   
@@ -274,6 +300,7 @@ function navigateVideo(direction) {
 
   videoSlides[activeVideoIdx].style.display = 'block';
   videoSlides[activeVideoIdx].classList.add('active');
+  updateVideoDots();
 }
 
 // Touch Swipe Support for video carousel in visitor dashboard
