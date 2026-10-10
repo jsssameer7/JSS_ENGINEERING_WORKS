@@ -168,23 +168,51 @@
   letter-spacing: 0.5px;
 }
 
-.hero-btn {
-  align-self: flex-start;
-  padding: 14px 32px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  box-shadow: var(--glow-gold);
-  border: none;
-  background: var(--gold-gradient);
-  color: var(--text-dark);
-  cursor: pointer;
-  border-radius: var(--border-radius-sm);
-  transition: all var(--transition-fast);
+.hero-action-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
-.hero-btn:hover {
+.hero-btn {
+  padding: 13px 26px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  text-decoration: none;
+}
+
+.hero-btn-gold {
+  background: var(--gold-gradient);
+  color: #0f172a;
+  box-shadow: var(--glow-gold);
+  border: none;
+}
+
+.hero-btn-gold:hover {
   transform: translateY(-2px);
   box-shadow: var(--glow-gold-intense);
+}
+
+.hero-btn-outline {
+  background: rgba(16, 20, 28, 0.7);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(8px);
+}
+
+.hero-btn-outline:hover {
+  background: rgba(223, 183, 67, 0.15);
+  border-color: var(--gold-primary);
+  color: var(--gold-light);
+  transform: translateY(-2px);
 }
 
 /* Scroll indicator */
@@ -565,6 +593,12 @@
   .badge-item {
     font-size: 0.72rem !important;
     padding: 5px 9px !important;
+  }
+
+  .hero-action-group {
+    width: 100% !important;
+    flex-direction: column !important;
+    gap: 10px !important;
   }
 
   .hero-btn {
