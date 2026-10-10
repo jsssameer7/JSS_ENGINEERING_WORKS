@@ -506,3 +506,129 @@
     padding-right: 5%;
   }
 }
+
+/* ===================================================
+   MOBILE PHONE UX: LANDING PAGE & AUTH MODAL
+   =================================================== */
+
+@media (max-width: 768px) {
+  /* Mobile Main Header */
+  .main-header {
+    height: 58px !important;
+    padding: 0 14px !important;
+  }
+  
+  .header-logo-area {
+    gap: 10px !important;
+  }
+
+  .header-logo-area .header-logo {
+    height: 36px !important;
+  }
+  
+  .header-logo-area .header-title {
+    font-size: 1.05rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 170px;
+  }
+  
+  .login-trigger-btn {
+    padding: 6px 12px !important;
+    font-size: 0.8rem !important;
+    height: 34px !important;
+  }
+
+  /* Mobile Fullscreen Hero */
+  .hero-fullscreen {
+    padding-top: 58px;
+  }
+
+  .hero-content-fullscreen {
+    padding: 20px 16px 50px !important;
+    max-width: 100% !important;
+  }
+
+  .hero-text {
+    font-size: 0.92rem !important;
+    line-height: 1.55 !important;
+  }
+
+  .highlight-badges {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    margin: 14px 0 18px !important;
+  }
+
+  .badge-item {
+    font-size: 0.72rem !important;
+    padding: 5px 9px !important;
+  }
+
+  .hero-btn {
+    width: 100% !important;
+    padding: 13px 18px !important;
+    font-size: 0.95rem !important;
+    text-align: center;
+    border-radius: var(--border-radius-sm) !important;
+  }
+
+  .scroll-indicator {
+    bottom: 12px !important;
+    font-size: 0.72rem !important;
+  }
+
+  /* Video Tour section on phones */
+  .video-showcase-section {
+    padding: 40px 14px !important;
+  }
+
+  .section-title {
+    font-size: 1.35rem !important;
+  }
+
+  /* Native Mobile Bottom Sheet / Modal Dialog on phones */
+  .modal-backdrop {
+    padding: 12px !important;
+    align-items: center;
+  }
+
+  .auth-card {
+    padding: 24px 18px !important;
+    border-radius: 18px !important;
+    max-width: 100% !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.9) !important;
+  }
+
+  .auth-header {
+    margin-bottom: 16px !important;
+  }
+
+  .auth-header h2 {
+    font-size: 1.3rem !important;
+  }
+
+  .auth-tabs {
+    margin-bottom: 16px !important;
+  }
+
+  .auth-tab {
+    padding: 9px 8px !important;
+    font-size: 0.82rem !important;
+  }
+
+  .demo-box {
+    margin-top: 16px !important;
+    padding: 12px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .header-logo-area .header-title {
+    max-width: 125px !important;
+    font-size: 0.95rem !important;
+  }
+}
+

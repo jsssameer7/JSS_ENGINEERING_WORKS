@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0c10">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Worker Hub - JSS Engineering Works</title>
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/global.css">
@@ -33,6 +36,18 @@
     .safety-check-item.checked {
       border-color: rgba(0, 230, 118, 0.3);
       background: rgba(0, 230, 118, 0.02);
+    }
+    @media (max-width: 768px) {
+      .safety-check-item {
+        padding: 14px 12px;
+        min-height: 48px;
+        touch-action: manipulation;
+      }
+      .safety-check-item input[type="checkbox"] {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+      }
     }
     .disabled-form {
       opacity: 0.4;

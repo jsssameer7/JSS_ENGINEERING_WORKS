@@ -298,10 +298,119 @@ header.app-header {
   .grid-4 { grid-template-columns: repeat(2, 1fr); }
   .grid-3 { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* ===================================================
+   COMPREHENSIVE PROFESSIONAL MOBILE PHONE UI / UX
+   =================================================== */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth Momentum Scrolling */
+.table-container,
+.panel-tabs,
+.portfolio-grid,
+.video-slider-container,
+.modal-content,
+.auth-card {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Tablet & Mobile App Header (<= 768px) */
 @media (max-width: 768px) {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  header.app-header { padding: 0 20px; }
-  .header-subtitle { display: none; }
+  
+  header.app-header {
+    height: 58px !important;
+    padding: 0 14px !important;
+  }
+  
+  .header-brand {
+    gap: 10px !important;
+  }
+  
+  .header-logo {
+    height: 36px !important;
+  }
+  
+  .header-title {
+    font-size: 1.05rem !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+  }
+  
+  .header-subtitle {
+    display: none !important;
+  }
+  
+  .header-user {
+    gap: 8px !important;
+  }
+  
+  .theme-toggle-btn {
+    width: 34px !important;
+    height: 34px !important;
+    margin-right: 0 !important;
+  }
+  
+  .user-badge {
+    padding: 4px 8px !important;
+    font-size: 0.72rem !important;
+    gap: 5px !important;
+  }
+  
+  .header-user .btn {
+    padding: 6px 10px !important;
+    font-size: 0.78rem !important;
+    min-height: 34px !important;
+  }
+  
+  /* Form controls font size >= 16px to prevent iOS/Android auto-zoom */
+  .form-control, input, select, textarea {
+    font-size: 16px !important;
+    padding: 10px 12px !important;
+  }
+  
+  /* Touch-friendly buttons */
+  .btn {
+    min-height: 42px;
+    touch-action: manipulation;
+  }
+  
+  .container {
+    padding: 12px 14px !important;
+  }
+  
+  /* Toast Alert Container on phones */
+  .alert-container {
+    top: 10px !important;
+    right: 10px !important;
+    left: 10px !important;
+    max-width: none !important;
+    width: auto !important;
+  }
+}
+
+/* Small Smart Phones (<= 420px) */
+@media (max-width: 420px) {
+  .header-title {
+    max-width: 125px !important;
+    font-size: 0.95rem !important;
+  }
+  .user-badge span:not(.badge-dot) {
+    max-width: 55px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 /* Theme Toggle Button styling */

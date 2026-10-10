@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0c10">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Visitor Portal - JSS Engineering Works</title>
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/global.css">
@@ -31,6 +34,19 @@
       font-size: 0.95rem;
       color: var(--text-main);
       text-shadow: 0 1px 5px rgba(0,0,0,0.8);
+    }
+    @media (max-width: 768px) {
+      .hero-banner {
+        height: 180px !important;
+        padding: 16px !important;
+        margin-bottom: 20px !important;
+      }
+      .hero-content h1 {
+        font-size: 1.35rem !important;
+      }
+      .hero-content p {
+        font-size: 0.82rem !important;
+      }
     }
 
     /* Portfolio Cards Grid */
