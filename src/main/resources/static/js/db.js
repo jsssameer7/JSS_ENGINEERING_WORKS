@@ -12,10 +12,15 @@ const DB_KEYS = {
 };
 
 // Check if we should use backend API endpoints or LocalStorage
-const useBackend = (window.location.protocol !== 'file:' && window.location.hostname !== '');
+// Static hosts like GitHub Pages or file protocol will use LocalStorage directly
+const isStaticHost = window.location.protocol === 'file:' || 
+                     window.location.hostname === '' || 
+                     window.location.hostname.includes('github.io');
+let useBackend = !isStaticHost;
 
-// Synchronous HTTP Request helper to preserve synchronous frontend script logic
+// Synchronous HTTP Request helper with automatic fail-safe fallback
 function makeRequest(method, url, data = null) {
+  if (!useBackend) return null;
   try {
     const xhr = new XMLHttpRequest();
     xhr.open(method, url, false); // false = synchronous
@@ -24,12 +29,14 @@ function makeRequest(method, url, data = null) {
     if (xhr.status >= 200 && xhr.status < 300) {
       return JSON.parse(xhr.responseText);
     } else {
-      console.error(`[JSS API Error] ${method} ${url} status ${xhr.status}`);
-      throw new Error(xhr.statusText);
+      console.warn(`[JSS API Offline] ${method} ${url} returned ${xhr.status}. Falling back to LocalStorage.`);
+      useBackend = false;
+      return null;
     }
   } catch (err) {
-    console.error(`[JSS API Connection Failed] ${method} ${url}:`, err);
-    throw err;
+    console.warn(`[JSS API Connection Failed] ${method} ${url}. Falling back to LocalStorage.`);
+    useBackend = false;
+    return null;
   }
 }
 
@@ -64,15 +71,13 @@ const INITIAL_DATA = {
   ]
 };
 
-// Initialize Database if empty
+// Initialize Database if empty (Always seed LocalStorage as offline fallback)
 function initDatabase() {
-  if (!useBackend) {
-    Object.keys(INITIAL_DATA).forEach(key => {
-      if (!localStorage.getItem(key)) {
-        localStorage.setItem(key, JSON.stringify(INITIAL_DATA[key]));
-      }
-    });
-  }
+  Object.keys(INITIAL_DATA).forEach(key => {
+    if (!localStorage.getItem(key)) {
+      localStorage.setItem(key, JSON.stringify(INITIAL_DATA[key]));
+    }
+  });
 }
 
 // Database Operations Helper
@@ -84,42 +89,42 @@ const DB = {
   // Project Functions
   getProjects: () => {
     if (useBackend) {
-      return makeRequest('GET', '/api/projects');
-    } else {
-      return DB.get(DB_KEYS.PROJECTS);
+      const res = makeRequest('GET', '/api/projects');
+      if (res && Array.isArray(res)) return res;
     }
+    return DB.get(DB_KEYS.PROJECTS);
   },
   addProject: (project) => {
     if (useBackend) {
-      return makeRequest('POST', '/api/projects', project);
-    } else {
-      const projects = DB.getProjects();
-      project.id = 'proj_' + Date.now();
-      project.progress = 0;
-      project.status = 'Not Started';
-      projects.push(project);
-      DB.set(DB_KEYS.PROJECTS, projects);
-      
-      if (project.workerId && project.workerId !== 'unassigned') {
-        DB.updateWorkerProject(project.workerId, project.name);
-      }
-      return project;
+      const res = makeRequest('POST', '/api/projects', project);
+      if (res) return res;
     }
+    const projects = DB.getProjects();
+    project.id = 'proj_' + Date.now();
+    project.progress = 0;
+    project.status = 'Not Started';
+    projects.push(project);
+    DB.set(DB_KEYS.PROJECTS, projects);
+    
+    if (project.workerId && project.workerId !== 'unassigned') {
+      DB.updateWorkerProject(project.workerId, project.name);
+    }
+    return project;
   },
   updateProjectProgress: (projectId, progress, status) => {
     if (useBackend) {
-      return makeRequest('PUT', '/api/projects/progress', { projectId, progress, status });
-    } else {
-      const projects = DB.getProjects();
-      const index = projects.findIndex(p => p.id === projectId);
-      if (index !== -1) {
-        projects[index].progress = parseInt(progress);
-        projects[index].status = status;
-        DB.set(DB_KEYS.PROJECTS, projects);
-        
-        if (status === 'Completed' && projects[index].workerId) {
-          DB.updateWorkerProject(projects[index].workerId, 'None');
-        }
+      const res = makeRequest('PUT', '/api/projects/progress', { projectId, progress, status });
+      if (res) return res;
+    }
+    const projects = DB.getProjects();
+    const index = projects.findIndex(p => p.id === projectId);
+    if (index !== -1) {
+      projects[index].progress = parseInt(progress);
+      projects[index].status = status;
+      DB.set(DB_KEYS.PROJECTS, projects);
+      
+      if (status === 'Completed' && projects[index].workerId) {
+        DB.updateWorkerProject(projects[index].workerId, 'None');
       }
     }
   },
@@ -127,10 +132,10 @@ const DB = {
   // Worker Functions
   getWorkers: () => {
     if (useBackend) {
-      return makeRequest('GET', '/api/workers');
-    } else {
-      return DB.get(DB_KEYS.WORKERS);
+      const res = makeRequest('GET', '/api/workers');
+      if (res && Array.isArray(res)) return res;
     }
+    return DB.get(DB_KEYS.WORKERS);
   },
   addWorker: (worker) => {
     if (useBackend) {
@@ -223,74 +228,74 @@ const DB = {
   // Visitor Functions
   getVisitorLogs: () => {
     if (useBackend) {
-      return makeRequest('GET', '/api/visitors');
-    } else {
-      return DB.get(DB_KEYS.VISITOR_LOGS);
+      const res = makeRequest('GET', '/api/visitors');
+      if (res && Array.isArray(res)) return res;
     }
+    return DB.get(DB_KEYS.VISITOR_LOGS);
   },
   addVisitorRequest: (req) => {
     if (useBackend) {
-      return makeRequest('POST', '/api/visitors', req);
-    } else {
-      const logs = DB.getVisitorLogs();
-      req.id = 'vis_' + Date.now();
-      req.status = 'Pending';
-      logs.push(req);
-      DB.set(DB_KEYS.VISITOR_LOGS, logs);
-      return req;
+      const res = makeRequest('POST', '/api/visitors', req);
+      if (res) return res;
     }
+    const logs = DB.getVisitorLogs();
+    req.id = 'vis_' + Date.now();
+    req.status = 'Pending';
+    logs.push(req);
+    DB.set(DB_KEYS.VISITOR_LOGS, logs);
+    return req;
   },
   updateVisitorStatus: (requestId, status) => {
     if (useBackend) {
-      return makeRequest('PUT', '/api/visitors/status', { requestId, status });
-    } else {
-      const logs = DB.getVisitorLogs();
-      const index = logs.findIndex(l => l.id === requestId);
-      if (index !== -1) {
-        logs[index].status = status;
-        DB.set(DB_KEYS.VISITOR_LOGS, logs);
-      }
+      const res = makeRequest('PUT', '/api/visitors/status', { requestId, status });
+      if (res) return res;
+    }
+    const logs = DB.getVisitorLogs();
+    const index = logs.findIndex(l => l.id === requestId);
+    if (index !== -1) {
+      logs[index].status = status;
+      DB.set(DB_KEYS.VISITOR_LOGS, logs);
     }
   },
 
   // Weld Logging Functions
   getWeldLogs: () => {
     if (useBackend) {
-      return makeRequest('GET', '/api/weldlogs');
-    } else {
-      return DB.get(DB_KEYS.WELD_LOGS);
+      const res = makeRequest('GET', '/api/weldlogs');
+      if (res && Array.isArray(res)) return res;
     }
+    return DB.get(DB_KEYS.WELD_LOGS);
   },
   addWeldLog: (weldLog) => {
     if (useBackend) {
-      return makeRequest('POST', '/api/weldlogs', weldLog);
-    } else {
-      const logs = DB.getWeldLogs();
-      weldLog.id = 'log_' + Date.now();
-      weldLog.date = new Date().toISOString().split('T')[0];
-      logs.push(weldLog);
-      DB.set(DB_KEYS.WELD_LOGS, logs);
-
-      // Auto progress increment
-      const projects = DB.getProjects();
-      const project = projects.find(p => p.id === weldLog.projectId);
-      if (project) {
-        let nextProgress = Math.min(project.progress + 10, 95);
-        DB.updateProjectProgress(weldLog.projectId, nextProgress, 'In Progress');
-      }
-      return weldLog;
+      const res = makeRequest('POST', '/api/weldlogs', weldLog);
+      if (res) return res;
     }
+    const logs = DB.getWeldLogs();
+    weldLog.id = 'log_' + Date.now();
+    weldLog.date = new Date().toISOString().split('T')[0];
+    logs.push(weldLog);
+    DB.set(DB_KEYS.WELD_LOGS, logs);
+
+    // Auto progress increment
+    const projects = DB.getProjects();
+    const project = projects.find(p => p.id === weldLog.projectId);
+    if (project) {
+      let nextProgress = Math.min(project.progress + 10, 95);
+      DB.updateProjectProgress(weldLog.projectId, nextProgress, 'In Progress');
+    }
+    return weldLog;
   },
 
   // Leave Management Functions
   getLeaves: (workerId = null) => {
     if (useBackend) {
       const url = workerId ? `/api/leaves?workerId=${workerId}` : '/api/leaves';
-      return makeRequest('GET', url);
-    } else {
-      const leaves = DB.get(DB_KEYS.LEAVES);
-      return workerId ? leaves.filter(l => l.workerId === workerId) : leaves;
+      const res = makeRequest('GET', url);
+      if (res && Array.isArray(res)) return res;
     }
+    const leaves = DB.get(DB_KEYS.LEAVES);
+    return workerId ? leaves.filter(l => l.workerId === workerId) : leaves;
   },
   addLeaveRequest: (leave) => {
     if (useBackend) {

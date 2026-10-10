@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0c10">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>JSS Engineering Works - Portal</title>
+  <meta name="description" content="Precision Structural Steel Fabrication and Industrial Welding Services Portal.">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="auth-page">
+
+  <!-- Header Section -->
+  <header class="main-header">
+    <div class="header-logo-area">
+      <img src="assets/logo.jpg" class="header-logo" alt="JSS Engineering Works Logo">
+      <span class="header-title">JSS Engineering Works</span>
+    </div>
+    <div style="display: flex; align-items: center;">
+      <!-- Theme Toggle Button -->
+      <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button class="login-trigger-btn" onclick="openLoginModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 6px;"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3"/></svg>
+        Portal Login
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Immersive Infosys-Style Hero Slider -->
+  <section class="hero-fullscreen">
+    
+    <!-- Background Image Slider -->
+    <div class="carousel-background">
+      <div class="carousel-slide active">
+        <img src="assets/work1.jpg" alt="Structural Frame Project Done Work">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work2.jpg" alt="Corrugated Cladding Wall Done Work">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work3.jpg" alt="Roofing Truss Construction Done Work">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work4.jpg" alt="Roof Assembly Construction Done Work">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_5.jpg" alt="Truss Roof Frame Assembly">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_6.jpg" alt="Wall Corrugated Panel installation">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_7.jpg" alt="Roof Support Structures">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_8.jpg" alt="Steel Framing Truss Structure">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_9.jpg" alt="Factory Shed Roofing Installation">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_10.jpg" alt="Structural Columns and Purlins">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_11.jpg" alt="Completed Roofing Cover Assembly">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_12.jpg" alt="Heavy Fabrication and Truss Alignment">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_13.jpg" alt="Welded Roof Truss Framework">
+      </div>
+      <div class="carousel-slide">
+        <img src="assets/work_14.jpg" alt="Industrial Fabrication Site Work">
+      </div>
+    </div>
+
+    <!-- Fading overlay for text readability -->
+    <div class="overlay-gradient"></div>
+
+    <!-- Overlaid Hero Content (Center-Left) -->
+    <div class="hero-content-fullscreen">
+      <p class="hero-text">
+        Welcome to <strong>JSS Engineering Works</strong> (Jaffar Shareef – Proprietor). We specialize in high-quality Iron & Steel Fabrication & Erection, Sheet Fixing, Steel Plant works, and all types of Machinery Works.<br>
+        <span style="display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; font-size: 0.95rem; color: var(--gold-light);">
+          <a href="tel:9845737632" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <strong>98457 37632</strong>
+          </a>
+          <span style="opacity: 0.5;">|</span>
+          <a href="mailto:jsseng.bly@gmail.com" style="color: inherit; text-decoration: none; display: inline-flex; align-items: center; gap: 4px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            jsseng.bly@gmail.com
+          </a>
+        </span><br>
+        <span style="display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; font-size: 0.85rem; color: var(--text-muted);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Janatha Nagar, 6th Cross, 18th Ward, ATP Road, Ballari - 583101
+        </span>
+      </p>
+      
+      <div class="highlight-badges">
+        <span class="badge-item">Fabrication & Erection</span>
+        <span class="badge-item">Sheet Fixing</span>
+        <span class="badge-item">Steel Plant Works</span>
+        <span class="badge-item">Machinery Works</span>
+      </div>
+
+      <button class="hero-btn" onclick="openLoginModal()">
+        Enter Workspace Portal
+      </button>
+    </div>
+
+    <!-- Bouncing Scroll Down Indicator -->
+    <div class="scroll-indicator" onclick="scrollToCapabilities()">
+      <span>Explore JSS Capabilities</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+    </div>
+
+  </section>
+
+  <!-- Video Tour & Process Section -->
+  <section class="video-showcase-section" style="background: rgba(10, 12, 16, 0.95); padding: 60px 8%; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
+    <h2 class="section-title" style="margin-bottom: 20px;">JSS Plant & Fabrication in Action</h2>
+    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px; font-size: 0.9rem; line-height: 1.5;">Watch our welding process and custom truss fabrication runs performed under strict ASME/AWS compliance guidelines. Swipe or use controls to view more videos.</p>
+    
+    <div class="video-slider-container" id="video-carousel" style="max-width: 800px; margin: 0 auto; border-radius: var(--border-radius-lg); overflow: hidden; border: 2px solid var(--border-color); box-shadow: var(--glow-gold); background: black; position: relative;">
+      
+      <!-- Video Slide 1 -->
+      <div class="video-slide active" style="display: block; animation: fadeIn 0.5s ease;">
+        <video width="100%" controls poster="assets/work1.jpg" style="display: block;">
+          <source src="assets/welding_video_1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="color: var(--gold-light); font-size: 0.95rem; padding: 15px; background: rgba(10, 12, 16, 0.9); font-weight: 500;">
+          Welding Process & Shop Floor Run - Video 1
+        </div>
+      </div>
+
+      <!-- Video Slide 2 -->
+      <div class="video-slide" style="display: none; animation: fadeIn 0.5s ease;">
+        <video width="100%" controls poster="assets/work2.jpg" style="display: block;">
+          <source src="assets/welding_video_2.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div style="color: var(--gold-light); font-size: 0.95rem; padding: 15px; background: rgba(10, 12, 16, 0.9); font-weight: 500;">
+          Truss Alignment & Overhead Hoisting - Video 2
+        </div>
+      </div>
+
+      <!-- Swipe / Nav Controls for video carousel -->
+      <button class="carousel-nav-btn prev-btn" onclick="navigateVideo(-1)" style="position: absolute; left: 15px; top: 40%; transform: translateY(-50%); z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,255,255,0.1); color: var(--gold-primary); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">&lsaquo;</button>
+      <button class="carousel-nav-btn next-btn" onclick="navigateVideo(1)" style="position: absolute; right: 15px; top: 40%; transform: translateY(-50%); z-index: 10; width: 40px; height: 40px; border-radius: 50%; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,255,255,0.1); color: var(--gold-primary); font-size: 1.8rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">&rsaquo;</button>
+    </div>
+  </section>
+
+  <!-- Portfolio Showcase Section -->
+  <section class="capabilities-section" id="capabilities" style="background-color: var(--bg-secondary); padding: 90px 8%; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 100%;">
+    <h2 class="section-title">JSS Fabrication Portfolio Showcase</h2>
+    <p style="color: var(--text-muted); text-align: center; max-width: 600px; margin: -30px auto 50px; font-size: 0.95rem; line-height: 1.5;">
+      Explore our complete catalog of structural steel works. Click on any project card to view the image in fullscreen high-resolution.
+    </p>
+    
+    <div class="portfolio-grid" id="portfolio-showcase-grid">
+      <!-- Injected dynamically via JS -->
+    </div>
+  </section>
+
+  <!-- Login Modal Panel -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="auth-card glass-panel">
+      <button class="modal-close-btn" onclick="closeLoginModal()">&times;</button>
+      
+      <div class="auth-header">
+        <h2 class="header-title" style="font-size: 1.4rem; color: var(--gold-primary); font-weight: 700;">JSS Portal Sign-In</h2>
+        <p class="auth-subtitle">Select Role and Log In</p>
+      </div>
+
+      <!-- Tab Buttons to select login type -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" data-tab="admin">Admin</button>
+        <button class="auth-tab" data-tab="worker">Worker</button>
+      </div>
+
+      <!-- Admin Login Form -->
+      <form id="admin-form" class="auth-form active" onsubmit="handleAuthSubmit(event, 'admin')">
+        <div class="form-group">
+          <label for="admin-username">Admin Username</label>
+          <input type="text" id="admin-username" class="form-control" placeholder="e.g. admin" required>
+        </div>
+        <div class="form-group">
+          <label for="admin-password">Password</label>
+          <input type="password" id="admin-password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+          Access Admin Panel
+        </button>
+      </form>
+
+      <!-- Worker Login Form -->
+      <form id="worker-form" class="auth-form" onsubmit="handleAuthSubmit(event, 'worker')">
+        <div class="form-group">
+          <label for="worker-username">Worker Username/ID</label>
+          <input type="text" id="worker-username" class="form-control" placeholder="e.g. worker1" required>
+        </div>
+        <div class="form-group">
+          <label for="worker-password">Password</label>
+          <input type="password" id="worker-password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+          Clock-in Worker Hub
+        </button>
+      </form>
+
+      <!-- Demo Credentials Quick Fill -->
+      <div class="demo-box">
+        <div class="demo-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+          Demo Credentials Helper
+        </div>
+        <div class="demo-credentials">
+          <div class="demo-credential-item">
+            <span>Admin Portal: <strong>admin</strong></span>
+            <button class="demo-credential-btn" onclick="quickFill('admin', 'admin', 'admin123')">Autofill</button>
+          </div>
+          <div class="demo-credential-item">
+            <span>Worker Hub: <strong>worker1</strong></span>
+            <button class="demo-credential-btn" onclick="quickFill('worker', 'worker1', 'worker123')">Autofill</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Fullscreen Swipeable Lightbox Modal -->
+  <div id="lightbox-modal" class="modal-backdrop" onclick="closeLightbox(event)" style="background: rgba(5,7,12,0.95); z-index: 999; display: none;">
+    <button class="modal-close-btn" onclick="closeLightbox(event)" style="top: 25px; right: 25px; font-size: 2.5rem; color: var(--text-light);">&times;</button>
+    
+    <div class="lightbox-content" style="position: relative; max-width: 90%; max-height: 80vh; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: auto;" onclick="event.stopPropagation()">
+      <img id="lightbox-img" src="" alt="Showcase Work" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: var(--border-radius-sm); border: 2px solid var(--border-color); box-shadow: var(--glow-gold);">
+      <p id="lightbox-caption" style="color: var(--gold-light); font-size: 1rem; margin-top: 15px; text-align: center; font-weight: 500; text-shadow: 0 2px 8px rgba(0,0,0,0.8);"></p>
+      
+      <!-- Left/Right controls inside lightbox -->
+      <button class="carousel-nav-btn prev-btn" onclick="navigateLightbox(-1, event)" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%);">&lsaquo;</button>
+      <button class="carousel-nav-btn next-btn" onclick="navigateLightbox(1, event)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%);">&rsaquo;</button>
+    </div>
+  </div>
+
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/theme.js"></script>
+  <script>
+    // Tab switching logic
+    const tabs = document.querySelectorAll('.auth-tab');
+    const forms = document.querySelectorAll('.auth-form');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        forms.forEach(f => f.classList.remove('active'));
+        
+        tab.classList.add('active');
+        const targetTab = tab.getAttribute('data-tab');
+        document.getElementById(`${targetTab}-form`).classList.add('active');
+      });
+    });
+
+    // Autofill helper for testing
+    function quickFill(role, user, pass) {
+      const tabButton = document.querySelector(`.auth-tab[data-tab="${role}"]`);
+      if (tabButton) tabButton.click();
+
+      if (role === 'admin') {
+        document.getElementById('admin-username').value = user;
+        document.getElementById('admin-password').value = pass;
+      } else if (role === 'worker') {
+        document.getElementById('worker-username').value = user;
+        document.getElementById('worker-password').value = pass;
+      }
+      
+      showAlert('Credentials Filled', `Auto-populated credentials for ${role.toUpperCase()}. Click submit to continue!`, 'info');
+    }
+
+    // Login submissions
+    function handleAuthSubmit(event, type) {
+      event.preventDefault();
+      
+      let res;
+      if (type === 'admin') {
+        const user = document.getElementById('admin-username').value;
+        const pass = document.getElementById('admin-password').value;
+        res = Auth.login(user, pass);
+      } else if (type === 'worker') {
+        const user = document.getElementById('worker-username').value;
+        const pass = document.getElementById('worker-password').value;
+        res = Auth.login(user, pass);
+      }
+
+      if (res && res.success) {
+        showAlert('Authentication Successful', `Welcome back, ${Auth.getCurrentUser().name}!`, 'success');
+        setTimeout(() => {
+          window.location.href = `${res.role}.html`;
+        }, 1000);
+      } else {
+        showAlert('Authentication Failed', res.message || 'Incorrect username or password', 'danger');
+      }
+    }
+
+    // Modal Control Functions
+    function openLoginModal() {
+      document.getElementById('login-modal').classList.add('show');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.remove('show');
+    }
+
+    // Close modal on background click
+    window.addEventListener('click', (event) => {
+      const modal = document.getElementById('login-modal');
+      if (event.target === modal) {
+        closeLoginModal();
+      }
+    });
+
+    // Scroll Down helper
+    function scrollToCapabilities() {
+      document.getElementById('capabilities').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Fullscreen Background Carousel slideshow logic
+    let currentSlideIdx = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    let carouselInterval;
+
+    function showSlide(index) {
+      if (slides.length === 0) return;
+      slides.forEach((slide, idx) => {
+        if (idx === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      currentSlideIdx = index;
+    }
+
+    function nextSlide() {
+      let nextIdx = (currentSlideIdx + 1) % slides.length;
+      showSlide(nextIdx);
+    }
+
+    function startCarousel() {
+      carouselInterval = setInterval(nextSlide, 5000); // 5 seconds per slide for smooth feel
+    }
+
+    // Start auto carousel on load
+    if (slides.length > 0) {
+      startCarousel();
+    }
+
+    // Video Carousel switcher
+    let activeVideoIdx = 0;
+    const videoSlides = document.querySelectorAll('.video-slide');
+
+    function navigateVideo(direction) {
+      if (videoSlides.length === 0) return;
+      
+      // Pause current playing video
+      const currentVideo = videoSlides[activeVideoIdx].querySelector('video');
+      if (currentVideo) currentVideo.pause();
+
+      videoSlides[activeVideoIdx].style.display = 'none';
+      videoSlides[activeVideoIdx].classList.remove('active');
+
+      activeVideoIdx = (activeVideoIdx + direction + videoSlides.length) % videoSlides.length;
+
+      videoSlides[activeVideoIdx].style.display = 'block';
+      videoSlides[activeVideoIdx].classList.add('active');
+    }
+
+    // Touch Swipe Support for video carousel
+    const videoCarousel = document.getElementById('video-carousel');
+    if (videoCarousel) {
+      let videoTouchStartX = 0;
+      let videoTouchEndX = 0;
+      
+      videoCarousel.addEventListener('touchstart', e => {
+        videoTouchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      
+      videoCarousel.addEventListener('touchend', e => {
+        videoTouchEndX = e.changedTouches[0].screenX;
+        if (videoTouchEndX < videoTouchStartX - 50) navigateVideo(1); // Swiped left -> next
+        if (videoTouchEndX > videoTouchStartX + 50) navigateVideo(-1); // Swiped right -> prev
+      }, { passive: true });
+    }
+
+    // Dynamic Portfolio Showcase & Fullscreen Lightbox
+    const JSS_WORKS = [
+      { img: 'assets/work1.jpg', title: 'Heavy Structural Steel Framework', badge: 'AWS D1.1', desc: 'Welding support trusses and crane girder structures. Double-pass MIG/FCAW beads inspected under full ultrasonic guidelines.', process: 'MIG / Flux-Cored' },
+      { img: 'assets/work2.jpg', title: 'Corrugated Sheet Cladding Installation', badge: 'Industrial Spec', desc: 'Installation of high-quality corrugated metal sheets for wall cladding, alignment, and seal insulation.', process: 'Cladding Assembly' },
+      { img: 'assets/work3.jpg', title: 'Industrial Shed Roof Assembly', badge: 'AWS D1.1', desc: 'Fabricating and lifting roofing truss structures for medium and large industrial warehouses.', process: 'SMAW Structural' },
+      { img: 'assets/work4.jpg', title: 'Completed Roofing Cover', badge: 'Profile Roofing', desc: 'Finished corrugated profile roof sheets installed on factory building trusses, waterproof checked.', process: 'Profile Roofing' },
+      { img: 'assets/work_5.jpg', title: 'Truss Roof Frame Assembly', badge: 'AWS D1.1', desc: 'High-strength steel truss frames assembled and aligned on site before primary columns installation.', process: 'MIG / TIG Tack' },
+      { img: 'assets/work_6.jpg', title: 'Wall Corrugated Panel Installation', badge: 'Industrial Spec', desc: 'Corrugated sheeting installed on the warehouse side wall using weather-sealed self-tapping screws.', process: 'Siding Assembly' },
+      { img: 'assets/work_7.jpg', title: 'Roof Support Structures', badge: 'API 650', desc: 'Purlins and support columns fabricated and aligned to bear heavy sheet loads.', process: 'MIG Welding' },
+      { img: 'assets/work_8.jpg', title: 'Steel Framing Truss Structure', badge: 'AWS D1.1', desc: 'Welded steel trusses hoisted for large factory bay construction, certified double passes.', process: 'Flux-Cored Arc' },
+      { img: 'assets/work_9.jpg', title: 'Factory Shed Roofing Installation', badge: 'ASME Sec IX', desc: 'Installing roof panels on factory columns, structural alignment checked.', process: 'Shed Construction' },
+      { img: 'assets/work_10.jpg', title: 'Structural Columns and Purlins', badge: 'Safety Certified', desc: 'Primary structural vertical support columns welded and bolted to factory foundations.', process: 'Heavy Columns' },
+      { img: 'assets/work_11.jpg', title: 'Completed Roofing Cover Assembly', badge: 'Industrial Spec', desc: 'Full shed roofing overlay completed and inspected for quality bead alignment.', process: 'Roof Cladding' },
+      { img: 'assets/work_12.jpg', title: 'Heavy Fabrication and Truss Alignment', badge: 'AWS D1.1', desc: 'Welders aligning support girders using overhead cranes. WPS specs followed.', process: 'Heavy Assembly' },
+      { img: 'assets/work_13.jpg', title: 'Welded Roof Truss Framework', badge: 'ASME Sec IX', desc: 'Closer view of completed structural truss welding joints, visual quality inspected.', process: 'MIG Welded cap' },
+      { img: 'assets/work_14.jpg', title: 'Industrial Fabrication Site Work', badge: 'Safety Certified', desc: 'Fabricators assembling portal frames, horizontal trusses, and side braces on site.', process: 'Site Fabrication' }
+    ];
+
+    let activeLightboxIndex = 0;
+
+    function renderPortfolioGrid() {
+      const grid = document.getElementById('portfolio-showcase-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      JSS_WORKS.forEach((w, index) => {
+        const card = document.createElement('div');
+        card.className = 'glass-panel portfolio-card';
+        card.style.cursor = 'pointer';
+        card.onclick = () => openLightbox(index);
+
+        card.innerHTML = `
+          <div class="portfolio-img">
+            <img src="${w.img}" class="portfolio-img-cover" alt="${w.title}">
+            <span class="portfolio-badge">${w.badge}</span>
+          </div>
+          <div class="portfolio-body">
+            <div>
+              <h3>${w.title}</h3>
+              <p>${w.desc}</p>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--gold-light); margin-top: 10px;">${w.process}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function openLightbox(index) {
+      activeLightboxIndex = index;
+      const modal = document.getElementById('lightbox-modal');
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+
+      img.src = JSS_WORKS[index].img;
+      caption.innerText = `${JSS_WORKS[index].title} (${index + 1} of ${JSS_WORKS.length})`;
+      
+      modal.style.display = 'flex';
+      modal.classList.add('show');
+    }
+
+    function closeLightbox(event) {
+      const modal = document.getElementById('lightbox-modal');
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 100);
+    }
+
+    function navigateLightbox(direction, event) {
+      if (event) event.stopPropagation();
+      activeLightboxIndex = (activeLightboxIndex + direction + JSS_WORKS.length) % JSS_WORKS.length;
+      
+      const img = document.getElementById('lightbox-img');
+      const caption = document.getElementById('lightbox-caption');
+
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = JSS_WORKS[activeLightboxIndex].img;
+        caption.innerText = `${JSS_WORKS[activeLightboxIndex].title} (${activeLightboxIndex + 1} of ${JSS_WORKS.length})`;
+        img.style.opacity = '1';
+      }, 150);
+    }
+
+    // Touch and Swipe navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    function handleSwipeGesture() {
+      if (touchEndX < touchStartX - 50) navigateLightbox(1);
+      if (touchEndX > touchStartX + 50) navigateLightbox(-1);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPortfolioGrid();
+
+      const modal = document.getElementById('lightbox-modal');
+      if (modal) {
+        modal.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        modal.addEventListener('touchend', e => {
+          touchEndX = e.changedTouches[0].screenX;
+          handleSwipeGesture();
+        }, { passive: true });
+      }
+
+      document.addEventListener('keydown', e => {
+        const modal = document.getElementById('lightbox-modal');
+        if (modal && modal.classList.contains('show')) {
+          if (e.key === 'ArrowRight') navigateLightbox(1);
+          else if (e.key === 'ArrowLeft') navigateLightbox(-1);
+          else if (e.key === 'Escape') closeLightbox();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
